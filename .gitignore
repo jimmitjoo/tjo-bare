@@ -10,3 +10,8 @@ coverage.out
 !/db-data/redis/.gitkeep
 !/db-data/postgres/.gitkeep
 !/db-data/mariadb/.gitkeep
+
+# Environment files with secrets
+.env
+.env.local
+.env.*.local
