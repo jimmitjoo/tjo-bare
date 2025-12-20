@@ -3,6 +3,7 @@ package data
 import (
 	"database/sql"
 	"fmt"
+	"log"
 	"os"
 
 	db2 "github.com/upper/db/v4"
@@ -16,19 +17,28 @@ var upper db2.Session
 type Models struct {
 }
 
-func New(databasePool *sql.DB) Models {
+// New creates a new Models instance with the given database pool.
+// Returns the Models and any error that occurred during setup.
+func New(databasePool *sql.DB) (Models, error) {
 	db = databasePool
 
+	var err error
 	switch os.Getenv("DATABASE_TYPE") {
 	case "mysql", "mariadb":
-		upper, _ = mysql.New(db)
+		upper, err = mysql.New(db)
+		if err != nil {
+			return Models{}, fmt.Errorf("failed to initialize MySQL adapter: %w", err)
+		}
 	case "postgres", "postgresql":
-		upper, _ = postgresql.New(db)
+		upper, err = postgresql.New(db)
+		if err != nil {
+			return Models{}, fmt.Errorf("failed to initialize PostgreSQL adapter: %w", err)
+		}
 	default:
-		// no database
+		log.Println("Warning: No DATABASE_TYPE set, database operations may not work")
 	}
 
-	return Models{}
+	return Models{}, nil
 }
 
 func getInsertID(i db2.ID) int {
