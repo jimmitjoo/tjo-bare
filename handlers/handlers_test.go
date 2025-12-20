@@ -6,26 +6,8 @@ import (
 	"testing"
 )
 
-// TestHome tests that the home handler returns a 200 status code
-func TestHome(t *testing.T) {
-	// Skip if no test infrastructure is set up
-	// This is a placeholder test that demonstrates the pattern
-	t.Skip("Skipping: requires full application setup")
-
-	// Example of how you would test handlers with full setup:
-	// app := setupTestApp(t)
-	// req := httptest.NewRequest("GET", "/", nil)
-	// rr := httptest.NewRecorder()
-	// app.Handlers.Home(rr, req)
-	// if rr.Code != http.StatusOK {
-	//     t.Errorf("expected status 200, got %d", rr.Code)
-	// }
-}
-
-// TestAPIHealthCheck tests the health check endpoint
-func TestAPIHealthCheck(t *testing.T) {
-	t.Skip("Skipping: requires full application setup")
-}
+// Note: Handler tests requiring full Gemquick app (Home, APIHealthCheck, etc.)
+// should be implemented as integration tests. See gemquick framework for patterns.
 
 // TestAPIResponse tests the APIResponse struct
 func TestAPIResponse(t *testing.T) {
