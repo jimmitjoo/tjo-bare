@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/jimmitjoo/gemquick/api"
 )
 
 func (route *application) routes() *chi.Mux {
@@ -17,8 +18,8 @@ func (route *application) routes() *chi.Mux {
 
 	// API routes (exempt from CSRF protection by framework)
 	route.App.Routes.Route("/api", func(r chi.Router) {
-		// Apply CORS for API routes
-		r.Use(route.Middleware.CORS)
+		// Apply CORS for API routes (configured via CORS_ALLOWED_ORIGINS env var)
+		r.Use(api.CORS(route.App.Config.CORS.AllowedOrigins))
 
 		// Public API endpoints
 		r.Get("/health", route.Handlers.APIHealthCheck)
