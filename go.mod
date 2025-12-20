@@ -6,8 +6,9 @@ toolchain go1.24.4
 
 require (
 	github.com/go-chi/chi/v5 v5.2.3
-	github.com/jimmitjoo/gemquick v0.1.0
+	github.com/jimmitjoo/gemquick v0.2.0
 	github.com/upper/db/v4 v4.10.0
+	golang.org/x/crypto v0.41.0
 )
 
 replace github.com/jimmitjoo/gemquick => ../gemquick
@@ -90,7 +91,6 @@ require (
 	github.com/vonage/vonage-go-sdk v0.14.0 // indirect
 	github.com/xhit/go-simple-mail/v2 v2.16.0 // indirect
 	go.opencensus.io v0.24.0 // indirect
-	golang.org/x/crypto v0.41.0 // indirect
 	golang.org/x/net v0.43.0 // indirect
 	golang.org/x/oauth2 v0.30.0 // indirect
 	golang.org/x/sync v0.16.0 // indirect
