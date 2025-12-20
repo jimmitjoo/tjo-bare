@@ -34,6 +34,8 @@ test:
 
 start: run
 
+dev: run
+
 stop:
 	@echo "Stopping Gemquick..."
 	@-pkill -SIGTERM -f "./tmp/${BINARY_NAME}"

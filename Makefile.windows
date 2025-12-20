@@ -31,6 +31,8 @@ test:
 
 start: run
 
+dev: run
+
 stop:
 	@echo "Stopping Gemquick..."
 	@taskkill /IM ${BINARY_NAME} /F"
