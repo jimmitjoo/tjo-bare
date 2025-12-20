@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"myapp/data"
-	"net/http"
 	"net/http/httptest"
 	"testing"
 )
@@ -17,40 +16,8 @@ func TestGetUserFromContext(t *testing.T) {
 	}
 }
 
-// TestCORSHeaders tests that CORS middleware sets correct headers
-func TestCORSHeaders(t *testing.T) {
-	// Create a mock next handler
-	next := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-	})
-
-	// Create middleware without full app (just test CORS logic)
-	m := &Middleware{}
-	handler := m.CORS(next)
-
-	// Test regular request
-	req := httptest.NewRequest("GET", "/api/test", nil)
-	rr := httptest.NewRecorder()
-	handler.ServeHTTP(rr, req)
-
-	// Check headers
-	if rr.Header().Get("Access-Control-Allow-Origin") != "*" {
-		t.Error("expected Access-Control-Allow-Origin header")
-	}
-
-	if rr.Header().Get("Access-Control-Allow-Methods") == "" {
-		t.Error("expected Access-Control-Allow-Methods header")
-	}
-
-	// Test OPTIONS preflight
-	req = httptest.NewRequest("OPTIONS", "/api/test", nil)
-	rr = httptest.NewRecorder()
-	handler.ServeHTTP(rr, req)
-
-	if rr.Code != http.StatusOK {
-		t.Errorf("expected status 200 for OPTIONS, got %d", rr.Code)
-	}
-}
+// Note: CORS is handled by the gemquick framework's api.CORS() middleware.
+// See gemquick/api/middleware.go for CORS implementation and tests.
 
 // TestContextKey tests context key uniqueness
 func TestContextKey(t *testing.T) {
