@@ -4,6 +4,8 @@ import (
 	"myapp/data"
 	"net/http/httptest"
 	"testing"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 // TestGetUserFromContext tests retrieving user from context
@@ -48,7 +50,20 @@ func TestUserFullName(t *testing.T) {
 
 // TestCheckPassword tests password verification
 func TestCheckPassword(t *testing.T) {
-	// This requires bcrypt which is already imported in data package
-	// The test demonstrates the pattern but would need a properly hashed password
-	t.Skip("Skipping: requires bcrypt password setup")
+	hashed, err := bcrypt.GenerateFromPassword([]byte("password123"), bcrypt.DefaultCost)
+	if err != nil {
+		t.Fatalf("failed to hash password: %v", err)
+	}
+
+	user := &data.User{Password: string(hashed)}
+
+	if !user.CheckPassword("password123") {
+		t.Error("correct password should match")
+	}
+	if user.CheckPassword("wrongpassword") {
+		t.Error("wrong password should not match")
+	}
+	if user.CheckPassword("") {
+		t.Error("empty password should not match")
+	}
 }
