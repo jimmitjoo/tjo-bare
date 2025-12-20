@@ -1,7 +1,6 @@
 package main
 
 import (
-	"myapp/data"
 	"myapp/handlers"
 	"myapp/middleware"
 
@@ -11,11 +10,10 @@ import (
 type application struct {
 	App        *gemquick.Gemquick
 	Handlers   *handlers.Handlers
-	Models     data.Models
 	Middleware *middleware.Middleware
 }
 
 func main() {
-	g := initApplication()
-	g.App.ListenAndServe()
+	app := initApplication()
+	app.App.ListenAndServe()
 }

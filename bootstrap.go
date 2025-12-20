@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"myapp/data"
 	"myapp/handlers"
 	"myapp/middleware"
 	"os"
@@ -16,10 +15,9 @@ func initApplication() *application {
 		log.Fatal(err)
 	}
 
-	// init Gemquick
+	// Initialize Gemquick framework
 	gem := &gemquick.Gemquick{}
 	err = gem.New(path)
-
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -40,15 +38,7 @@ func initApplication() *application {
 		Middleware: myMiddleware,
 	}
 
-	app.App.Routes = app.routes()
-
-	models, err := data.New(app.App.DB.Pool)
-	if err != nil {
-		log.Fatal(err)
-	}
-	app.Models = models
-	myHandlers.Models = app.Models
-	app.Middleware.Models = app.Models
+	app.App.HTTP.Router = app.routes()
 
 	return app
 }
