@@ -50,5 +50,8 @@ func (route *application) routes() *chi.Mux {
 	fileServer := http.FileServer(http.Dir("./public"))
 	route.App.Routes.Handle("/public/*", http.StripPrefix("/public", fileServer))
 
+	// Add monitoring endpoints (/health, /metrics) - must be after middleware
+	route.App.AddMonitoringRoutes(route.App.Routes)
+
 	return route.App.Routes
 }
