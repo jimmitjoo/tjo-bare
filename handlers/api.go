@@ -32,6 +32,15 @@ func (h *Handlers) errorJSON(w http.ResponseWriter, status int, message string) 
 	})
 }
 
+// validationErrorJSON writes a validation error response with field-level errors
+func (h *Handlers) validationErrorJSON(w http.ResponseWriter, errors map[string]string) {
+	h.writeJSON(w, http.StatusBadRequest, APIResponse{
+		Success: false,
+		Error:   "Validation failed",
+		Data:    errors,
+	})
+}
+
 // successJSON writes a success response with data
 func (h *Handlers) successJSON(w http.ResponseWriter, status int, data interface{}) {
 	h.writeJSON(w, status, APIResponse{
@@ -40,17 +49,32 @@ func (h *Handlers) successJSON(w http.ResponseWriter, status int, data interface
 	})
 }
 
-// APIGetUsers returns all users as JSON
-// GET /api/users
+// APIGetUsers returns paginated users as JSON
+// GET /api/users?page=1&per_page=10
 func (h *Handlers) APIGetUsers(w http.ResponseWriter, r *http.Request) {
-	users, err := h.Models.GetAllUsers()
+	// Parse pagination parameters
+	page := 1
+	perPage := 10
+
+	if p := r.URL.Query().Get("page"); p != "" {
+		if parsed, err := strconv.Atoi(p); err == nil && parsed > 0 {
+			page = parsed
+		}
+	}
+	if pp := r.URL.Query().Get("per_page"); pp != "" {
+		if parsed, err := strconv.Atoi(pp); err == nil && parsed > 0 {
+			perPage = parsed
+		}
+	}
+
+	result, err := h.Models.GetUsersPaginated(page, perPage)
 	if err != nil {
 		h.App.ErrorLog.Printf("Error fetching users: %v", err)
 		h.errorJSON(w, http.StatusInternalServerError, "Failed to fetch users")
 		return
 	}
 
-	h.successJSON(w, http.StatusOK, users)
+	h.successJSON(w, http.StatusOK, result)
 }
 
 // APIGetUser returns a single user by ID
@@ -89,9 +113,17 @@ func (h *Handlers) APICreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Basic validation
-	if req.Email == "" || req.Password == "" {
-		h.errorJSON(w, http.StatusBadRequest, "Email and password are required")
+	// Validate input
+	v := h.App.Validator(nil)
+	v.Check(req.Email != "", "email", "Email is required")
+	v.Check(req.Password != "", "password", "Password is required")
+	v.IsEmail("email", req.Email)
+	v.MinLength("password", req.Password, 8)
+	v.MaxLength("first_name", req.FirstName, 100)
+	v.MaxLength("last_name", req.LastName, 100)
+
+	if !v.Valid() {
+		h.validationErrorJSON(w, v.Errors)
 		return
 	}
 
@@ -124,6 +156,8 @@ func (h *Handlers) APICreateUser(w http.ResponseWriter, r *http.Request) {
 // APIDeleteUser deletes a user by ID
 // DELETE /api/users/{id}
 // Authorization: Users can only delete their own account.
+// To add admin functionality, extend the User model with a Role field
+// and check for admin role here.
 func (h *Handlers) APIDeleteUser(w http.ResponseWriter, r *http.Request) {
 	idParam := chi.URLParam(r, "id")
 	id, err := strconv.Atoi(idParam)
@@ -140,6 +174,9 @@ func (h *Handlers) APIDeleteUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Authorization check: users can only delete their own account
+	// To allow admins to delete any user, add a role check here:
+	// isAdmin := h.App.Session.GetBool(r.Context(), "is_admin")
+	// if currentUserID != id && !isAdmin {
 	if currentUserID != id {
 		h.errorJSON(w, http.StatusForbidden, "You can only delete your own account")
 		return
@@ -169,6 +206,17 @@ func (h *Handlers) APILogin(w http.ResponseWriter, r *http.Request) {
 	var req LoginRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		h.errorJSON(w, http.StatusBadRequest, "Invalid request body")
+		return
+	}
+
+	// Validate input before DB lookup
+	v := h.App.Validator(nil)
+	v.Check(req.Email != "", "email", "Email is required")
+	v.Check(req.Password != "", "password", "Password is required")
+	v.IsEmail("email", req.Email)
+
+	if !v.Valid() {
+		h.validationErrorJSON(w, v.Errors)
 		return
 	}
 

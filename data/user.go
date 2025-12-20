@@ -30,7 +30,17 @@ var ErrUserNotFound = errors.New("user not found")
 // ErrDuplicateEmail is returned when trying to create a user with an existing email
 var ErrDuplicateEmail = errors.New("email already exists")
 
+// PaginatedUsers holds paginated user data
+type PaginatedUsers struct {
+	Users      []User `json:"users"`
+	Page       int    `json:"page"`
+	PerPage    int    `json:"per_page"`
+	Total      uint64 `json:"total"`
+	TotalPages int    `json:"total_pages"`
+}
+
 // GetAllUsers returns all users from the database
+// Note: For large datasets, use GetUsersPaginated instead
 func (m *Models) GetAllUsers() ([]User, error) {
 	collection := upper.Collection(UserTable)
 	var users []User
@@ -42,6 +52,48 @@ func (m *Models) GetAllUsers() ([]User, error) {
 	}
 
 	return users, nil
+}
+
+// GetUsersPaginated returns a paginated list of users
+func (m *Models) GetUsersPaginated(page, perPage int) (*PaginatedUsers, error) {
+	if page < 1 {
+		page = 1
+	}
+	if perPage < 1 {
+		perPage = 10
+	}
+	if perPage > 100 {
+		perPage = 100 // Cap at 100 to prevent excessive queries
+	}
+
+	collection := upper.Collection(UserTable)
+	var users []User
+
+	res := collection.Find()
+
+	// Get total count
+	total, err := res.Count()
+	if err != nil {
+		return nil, err
+	}
+
+	// Calculate pagination
+	offset := (page - 1) * perPage
+	totalPages := int((total + uint64(perPage) - 1) / uint64(perPage))
+
+	// Get paginated results
+	err = res.Offset(offset).Limit(perPage).All(&users)
+	if err != nil {
+		return nil, err
+	}
+
+	return &PaginatedUsers{
+		Users:      users,
+		Page:       page,
+		PerPage:    perPage,
+		Total:      total,
+		TotalPages: totalPages,
+	}, nil
 }
 
 // GetUserByID retrieves a user by their ID
