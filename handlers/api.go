@@ -123,11 +123,25 @@ func (h *Handlers) APICreateUser(w http.ResponseWriter, r *http.Request) {
 
 // APIDeleteUser deletes a user by ID
 // DELETE /api/users/{id}
+// Authorization: Users can only delete their own account.
 func (h *Handlers) APIDeleteUser(w http.ResponseWriter, r *http.Request) {
 	idParam := chi.URLParam(r, "id")
 	id, err := strconv.Atoi(idParam)
 	if err != nil {
 		h.errorJSON(w, http.StatusBadRequest, "Invalid user ID")
+		return
+	}
+
+	// Get the current user's ID from the session
+	currentUserID := h.App.Session.GetInt(r.Context(), "user_id")
+	if currentUserID == 0 {
+		h.errorJSON(w, http.StatusUnauthorized, "Authentication required")
+		return
+	}
+
+	// Authorization check: users can only delete their own account
+	if currentUserID != id {
+		h.errorJSON(w, http.StatusForbidden, "You can only delete your own account")
 		return
 	}
 
