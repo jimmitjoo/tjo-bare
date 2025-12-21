@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"myapp/data"
 	"myapp/handlers"
 	"myapp/middleware"
 	"os"
@@ -23,6 +24,13 @@ func initApplication() *application {
 	}
 
 	gem.AppName = "myapp"
+
+	// Initialize upper/db session if database is configured
+	if gem.Data.DB.Pool != nil {
+		if err := data.InitDB(gem.Data.DB.Pool); err != nil {
+			log.Printf("Warning: Could not initialize upper/db: %v", err)
+		}
+	}
 
 	myMiddleware := &middleware.Middleware{
 		App: gem,
