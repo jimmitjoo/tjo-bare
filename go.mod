@@ -6,7 +6,7 @@ toolchain go1.24.4
 
 require (
 	github.com/go-chi/chi/v5 v5.2.3
-	github.com/jimmitjoo/gemquick v0.5.3
+	github.com/jimmitjoo/gemquick v0.5.4
 	github.com/upper/db/v4 v4.10.0
 )
 
