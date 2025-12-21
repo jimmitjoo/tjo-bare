@@ -6,8 +6,17 @@ toolchain go1.24.4
 
 require (
 	github.com/go-chi/chi/v5 v5.2.3
-	github.com/jimmitjoo/gemquick v0.5.4
+	github.com/jimmitjoo/tjo v0.5.4
 	github.com/upper/db/v4 v4.10.0
+)
+
+// Use local version during development
+replace (
+	github.com/jimmitjoo/tjo => ../tjo
+	github.com/jimmitjoo/tjo/email => ../tjo/email
+	github.com/jimmitjoo/tjo/otel => ../tjo/otel
+	github.com/jimmitjoo/tjo/sms => ../tjo/sms
+	github.com/jimmitjoo/tjo/websocket => ../tjo/websocket
 )
 
 require (
@@ -63,9 +72,9 @@ require (
 	github.com/jackc/pgx/v4 v4.18.3 // indirect
 	github.com/jackc/pgx/v5 v5.7.2 // indirect
 	github.com/jackc/puddle/v2 v2.2.2 // indirect
-	github.com/jimmitjoo/gemquick/email v0.0.0-20251221094921-4845a0ed4627 // indirect
-	github.com/jimmitjoo/gemquick/otel v0.0.0-20251221094921-4845a0ed4627 // indirect
-	github.com/jimmitjoo/gemquick/sms v0.0.0-20251221094921-4845a0ed4627 // indirect
+	github.com/jimmitjoo/tjo/email v0.0.0-20251221094921-4845a0ed4627 // indirect
+	github.com/jimmitjoo/tjo/otel v0.0.0-20251221094921-4845a0ed4627 // indirect
+	github.com/jimmitjoo/tjo/sms v0.0.0-20251221094921-4845a0ed4627 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect

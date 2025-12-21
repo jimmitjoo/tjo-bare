@@ -7,7 +7,7 @@ import (
 	"myapp/middleware"
 	"os"
 
-	"github.com/jimmitjoo/gemquick"
+	"github.com/jimmitjoo/tjo"
 )
 
 func initApplication() *application {
@@ -16,8 +16,8 @@ func initApplication() *application {
 		log.Fatal(err)
 	}
 
-	// Initialize Gemquick framework
-	gem := &gemquick.Gemquick{}
+	// Initialize Tjo framework
+	gem := &tjo.Tjo{}
 	err = gem.New(path)
 	if err != nil {
 		log.Fatal(err)

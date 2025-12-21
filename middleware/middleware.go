@@ -1,13 +1,13 @@
 package middleware
 
 import (
-	"github.com/jimmitjoo/gemquick"
+	"github.com/jimmitjoo/tjo"
 )
 
 // Middleware holds application middleware with access to the framework.
-// Add your custom middleware here or generate with: gq make middleware <name>
+// Add your custom middleware here or generate with: tjo make middleware <name>
 type Middleware struct {
-	App *gemquick.Gemquick
+	App *tjo.Tjo
 }
 
 // Example middleware template:

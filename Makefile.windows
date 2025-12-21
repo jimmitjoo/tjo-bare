@@ -1,16 +1,16 @@
-BINARY_NAME=gemquickApp.exe
+BINARY_NAME=tjoApp.exe
 
 build:
-	@echo "Building Gemquick..."
+	@echo "Building Tjo..."
 	@go build -o tmp/${BINARY_NAME} .
 	@npx tailwindcss -i ./resources/css/styles.css -o ./public/css/styles.css
-	@echo "Gemquick built!"
+	@echo "Tjo built!"
 
 run: build start_compose
-	@echo "Starting Gemquick..."
+	@echo "Starting Tjo..."
 	@start /min cmd /c tmp\${BINARY_NAME} &
 	@npx tailwindcss -i ./resources/css/styles.css -o ./public/css/styles.css --watch
-	@echo "Gemquick started!"
+	@echo "Tjo started!"
 
 clean:
 	@echo "Cleaning..."
@@ -34,8 +34,8 @@ start: run
 dev: run
 
 stop:
-	@echo "Stopping Gemquick..."
-	@taskkill /IM ${BINARY_NAME} /F"
-	@echo "Stopped Gemquick!"
+	@echo "Stopping Tjo..."
+	@taskkill /IM ${BINARY_NAME} /F
+	@echo "Stopped Tjo!"
 
 restart: stop start

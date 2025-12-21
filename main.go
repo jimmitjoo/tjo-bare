@@ -1,19 +1,22 @@
 package main
 
 import (
+	"log"
 	"myapp/handlers"
 	"myapp/middleware"
 
-	"github.com/jimmitjoo/gemquick"
+	"github.com/jimmitjoo/tjo"
 )
 
 type application struct {
-	App        *gemquick.Gemquick
+	App        *tjo.Tjo
 	Handlers   *handlers.Handlers
 	Middleware *middleware.Middleware
 }
 
 func main() {
 	app := initApplication()
-	app.App.ListenAndServe()
+	if err := app.App.ListenAndServe(); err != nil {
+		log.Fatalf("Server error: %v", err)
+	}
 }

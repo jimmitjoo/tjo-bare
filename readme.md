@@ -1,15 +1,15 @@
-# GemQuick Skeleton
+# Tjo Skeleton
 
-![GemQuick Logo](https://raw.githubusercontent.com/jimmitjoo/gemquick-bare/main/public/images/gemquick-logo.png)
+![Tjo Logo](https://raw.githubusercontent.com/jimmitjoo/tjo-bare/main/public/images/tjo-logo.png)
 
-Minimal starting point for GemQuick applications.
+Minimal starting point for Tjo applications.
 
 ## Quick Start
 
 ### 1. Create a new project
 
 ```bash
-gq new myapp
+tjonew myapp
 cd myapp
 ```
 
@@ -38,26 +38,26 @@ Navigate to [http://localhost:4000](http://localhost:4000)
 
 ## Adding Features
 
-Use the GemQuick CLI to generate code:
+Use the Tjo CLI to generate code:
 
 ```bash
 # Add complete authentication (login, register, password reset)
-gq make auth
+tjomake auth
 
 # Create a new data model
-gq make model Post
+tjomake model Post
 
 # Create a new HTTP handler
-gq make handler Blog
+tjomake handler Blog
 
 # Create a RESTful API controller
-gq make api-controller Products
+tjomake api-controller Products
 
 # Create database migrations
-gq make migration create_posts_table
+tjomake migration create_posts_table
 
 # Add middleware
-gq make middleware ratelimit
+tjomake middleware ratelimit
 ```
 
 ## Project Structure
@@ -136,7 +136,7 @@ npm run watch
 
 ## Documentation
 
-- [GemQuick Framework](https://github.com/jimmitjoo/gemquick) - Full documentation
+- [Tjo Framework](https://github.com/jimmitjoo/tjo) - Full documentation
 - [Jet Templates](https://github.com/CloudyKit/jet) - Template engine docs
 - [Chi Router](https://github.com/go-chi/chi) - HTTP router docs
 

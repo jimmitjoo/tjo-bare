@@ -11,7 +11,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: gemquick
+      POSTGRES_DB: tjo
     volumes:
       - ./db-data/postgres/:/var/lib/postgresql/data/
 
@@ -46,7 +46,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: gemquick
+      MYSQL_DATABASE: tjo
       MYSQL_USER: mariadb
       MYSQL_PASSWORD: password
 

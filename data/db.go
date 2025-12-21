@@ -45,17 +45,29 @@ func InitDB(db *sql.DB) error {
 // getInsertID extracts the integer ID from an insert result.
 // upper/db returns different types depending on the database driver,
 // so this helper normalizes the result.
-func getInsertID(id interface{}) int {
+// Returns 0 and an error if the ID is out of range or unsupported type.
+func getInsertID(id interface{}) (int, error) {
+	const maxInt = int(^uint(0) >> 1) // max int value for current platform
+
 	switch v := id.(type) {
 	case int64:
-		return int(v)
+		if v < 0 || v > int64(maxInt) {
+			return 0, fmt.Errorf("insert ID %d is out of range for int", v)
+		}
+		return int(v), nil
 	case int:
-		return v
+		return v, nil
 	case uint64:
-		return int(v)
+		if v > uint64(maxInt) {
+			return 0, fmt.Errorf("insert ID %d is out of range for int", v)
+		}
+		return int(v), nil
 	case uint:
-		return int(v)
+		if v > uint(maxInt) {
+			return 0, fmt.Errorf("insert ID %d is out of range for int", v)
+		}
+		return int(v), nil
 	default:
-		return 0
+		return 0, fmt.Errorf("unsupported insert ID type: %T", id)
 	}
 }
