@@ -8,7 +8,7 @@ import (
 
 func (a *application) routes() *chi.Mux {
 	// Public routes
-	a.get("/", a.Handlers.Home)
+	a.App.HTTP.Router.Get("/", a.Handlers.Home)
 
 	// Static files
 	fileServer := http.FileServer(http.Dir("./public"))
