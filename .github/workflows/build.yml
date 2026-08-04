@@ -1,6 +1,14 @@
 name: build
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  # Drift is produced by commits in the framework repo, but a push here happens
+  # about once a month. Without a schedule, detection latency is "until someone
+  # happens to touch the skeleton" - which is the window that cost two releases.
+  schedule:
+    - cron: '0 6 * * 1'
 
 jobs:
   build:
@@ -13,12 +21,59 @@ jobs:
     name: build (${{ matrix.framework }})
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
         with:
           go-version-file: go.mod
+
       - if: matrix.framework == 'main'
-        run: go get github.com/jimmitjoo/tjo@main
+        # The submodules are separate modules and stay pinned unless named
+        # explicitly, which would leave this job testing a mixed tree.
+        run: |
+          go get github.com/jimmitjoo/tjo@main \
+                 github.com/jimmitjoo/tjo/email@main \
+                 github.com/jimmitjoo/tjo/otel@main \
+                 github.com/jimmitjoo/tjo/sms@main
+
       - run: go build ./...
       - run: go vet ./...
       - run: go test ./...
+
+      # go build cannot see Jet templates and go test proves nothing about the
+      # running app. This is the only step that would have caught the router
+      # being built before the session, which returned 500 on every page while
+      # all three steps above were green.
+      - name: Smoke test
+        run: |
+          # KEY must be exactly 16, 24 or 32 chars or the app refuses to boot,
+          # so over-generate before trimming - base64 padding is stripped out.
+          sed -e "s|^KEY=$|KEY=$(head -c 64 /dev/urandom | base64 | tr -dc 'A-Za-z0-9' | head -c 32)|" \
+              -e 's|^PORT=.*|PORT=4111|' .env.example > .env
+          go build -o /tmp/app .
+          /tmp/app & echo $! > /tmp/app.pid
+          for i in $(seq 1 30); do curl -sf -o /dev/null http://localhost:4111/ && break || sleep 1; done
+
+          curl -sf -o page.html -w 'GET / -> %{http_code}\n' http://localhost:4111/
+
+          # Every asset the page references must resolve. A bare curl of / is
+          #200 even when the hero image and every favicon 404.
+          grep -oE '(src|href)="/[^"]*"' page.html | cut -d'"' -f2 | sort -u | while read -r path; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:4111$path")
+            echo "$path -> $code"
+            [ "$code" = "200" ] || { echo "::error::$path returned $code"; exit 1; }
+          done
+
+          # NoSurf only mounts when the session exists; an empty token means the
+          # app is serving without CSRF protection.
+          grep -q 'csrf_token" content="..*"' page.html || {
+            echo "::error::CSRF token is empty - session middleware did not mount"; exit 1; }
+
+          kill "$(cat /tmp/app.pid)"
+
+      # The committed CSS has no other alarm on it: its only regeneration step
+      # lives in the Makefiles, which nothing in CI runs.
+      - name: Committed CSS is in sync
+        run: |
+          npm install --no-audit --no-fund
+          npm run build
+          git diff --exit-code public/css/styles.css
