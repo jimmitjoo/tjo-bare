@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"myapp/data"
 	"net/http"
 	"time"
 
@@ -10,7 +11,8 @@ import (
 // Handlers holds HTTP request handlers with access to the framework.
 // Add your handlers here or generate with: tjo make handler <name>
 type Handlers struct {
-	App *tjo.Tjo
+	App    *tjo.Tjo
+	Models data.Models
 }
 
 // Home renders the home page

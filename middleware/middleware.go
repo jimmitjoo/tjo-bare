@@ -1,13 +1,16 @@
 package middleware
 
 import (
+	"myapp/data"
+
 	"github.com/jimmitjoo/tjo"
 )
 
 // Middleware holds application middleware with access to the framework.
 // Add your custom middleware here or generate with: tjo make middleware <name>
 type Middleware struct {
-	App *tjo.Tjo
+	App    *tjo.Tjo
+	Models data.Models
 }
 
 // Example middleware template:

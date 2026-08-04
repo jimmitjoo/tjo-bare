@@ -17,36 +17,44 @@ func initApplication() *application {
 	}
 
 	// Initialize Tjo framework
-	gem := &tjo.Tjo{}
-	err = gem.New(path)
+	app := &tjo.Tjo{}
+	err = app.New(path)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	gem.AppName = "myapp"
+	app.AppName = "myapp"
 
-	// Initialize upper/db session if database is configured
-	if gem.Data.DB.Pool != nil {
-		if err := data.InitDB(gem.Data.DB.Pool); err != nil {
+	// Initialize upper/db session and models if a database is configured.
+	// Without one, models stay zero-valued and any model call will fail.
+	var models data.Models
+	if app.Data.DB.Pool != nil {
+		if err := data.InitDB(app.Data.DB.Pool); err != nil {
 			log.Printf("Warning: Could not initialize upper/db: %v", err)
+		}
+		models, err = data.New(app.Data.DB.Pool)
+		if err != nil {
+			log.Fatal(err)
 		}
 	}
 
 	myMiddleware := &middleware.Middleware{
-		App: gem,
+		App:    app,
+		Models: models,
 	}
 
 	myHandlers := &handlers.Handlers{
-		App: gem,
+		App:    app,
+		Models: models,
 	}
 
-	app := &application{
-		App:        gem,
+	a := &application{
+		App:        app,
 		Handlers:   myHandlers,
 		Middleware: myMiddleware,
 	}
 
-	app.App.HTTP.Router = app.routes()
+	a.App.HTTP.Router = a.routes()
 
-	return app
+	return a
 }

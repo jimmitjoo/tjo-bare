@@ -5,7 +5,7 @@ import (
 )
 
 // Models holds all application data models.
-// Add your models here after generating them with: gq make model <name>
+// Add your models here after generating them with: tjo make model <name>
 type Models struct {
 	// Add model fields here, e.g.:
 	// Users UserModel
