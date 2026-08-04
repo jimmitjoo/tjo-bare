@@ -3,7 +3,6 @@ package data
 import (
 	"database/sql"
 	"fmt"
-	"os"
 
 	up "github.com/upper/db/v4"
 	"github.com/upper/db/v4/adapter/mysql"
@@ -16,13 +15,16 @@ var upper up.Session
 
 // InitDB initializes the upper/db session from an existing *sql.DB connection.
 // This should be called during application startup after the database connection is established.
-func InitDB(db *sql.DB) error {
+//
+// dbType comes from the framework's resolved config rather than being read from
+// the environment again here: two independent readings of DATABASE_TYPE is how a
+// driver alias added upstream silently stops working in this package.
+func InitDB(db *sql.DB, dbType string) error {
 	if db == nil {
 		return fmt.Errorf("database connection is nil")
 	}
 
 	var err error
-	dbType := os.Getenv("DATABASE_TYPE")
 
 	switch dbType {
 	case "postgres", "postgresql", "pgx":

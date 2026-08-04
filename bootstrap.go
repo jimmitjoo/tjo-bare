@@ -25,12 +25,14 @@ func initApplication() *application {
 
 	app.AppName = "myapp"
 
-	// Initialize upper/db session and models if a database is configured.
-	// Without one, models stay zero-valued and any model call will fail.
+	// Initialize the upper/db session and models if a database is configured.
+	// A failure here is fatal on purpose: the session is a package global that
+	// every generated model dereferences, so continuing would trade a startup
+	// error for a nil panic on the first query in production.
 	var models data.Models
 	if app.Data.DB.Pool != nil {
-		if err := data.InitDB(app.Data.DB.Pool); err != nil {
-			log.Printf("Warning: Could not initialize upper/db: %v", err)
+		if err := data.InitDB(app.Data.DB.Pool, app.Config.Database.Type); err != nil {
+			log.Fatalf("database: %v", err)
 		}
 		models, err = data.New(app.Data.DB.Pool)
 		if err != nil {
