@@ -1,0 +1,24 @@
+name: build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        # released: what a fresh clone actually gets
+        # main: catches framework API changes before they reach generated projects
+        framework: [released, main]
+    name: build (${{ matrix.framework }})
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - if: matrix.framework == 'main'
+        run: go get github.com/jimmitjoo/tjo@main
+      - run: go build ./...
+      - run: go vet ./...
+      - run: go test ./...
