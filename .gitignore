@@ -7,6 +7,9 @@
 /db-data/redis
 .idea
 coverage.out
+/myapp
+go.work
+go.work.sum
 !/db-data/redis/.gitkeep
 !/db-data/postgres/.gitkeep
 !/db-data/mariadb/.gitkeep

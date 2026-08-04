@@ -6,17 +6,8 @@ toolchain go1.24.4
 
 require (
 	github.com/go-chi/chi/v5 v5.2.3
-	github.com/jimmitjoo/tjo v0.5.4
+	github.com/jimmitjoo/tjo v0.6.2-0.20260804140902-3ce7e1e1a8c9
 	github.com/upper/db/v4 v4.10.0
-)
-
-// Use local version during development
-replace (
-	github.com/jimmitjoo/tjo => ../tjo
-	github.com/jimmitjoo/tjo/email => ../tjo/email
-	github.com/jimmitjoo/tjo/otel => ../tjo/otel
-	github.com/jimmitjoo/tjo/sms => ../tjo/sms
-	github.com/jimmitjoo/tjo/websocket => ../tjo/websocket
 )
 
 require (
@@ -50,7 +41,7 @@ require (
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
 	github.com/golang-jwt/jwt/v5 v5.3.0 // indirect
-	github.com/golang-migrate/migrate/v4 v4.19.0 // indirect
+	github.com/golang-migrate/migrate/v4 v4.19.1 // indirect
 	github.com/golang/groupcache v0.0.0-20241129210726-2c02b8208cf8 // indirect
 	github.com/golang/mock v1.6.0 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
@@ -60,8 +51,6 @@ require (
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/css v1.0.1 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.3 // indirect
-	github.com/hashicorp/errwrap v1.1.0 // indirect
-	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
 	github.com/jackc/pgconn v1.14.3 // indirect
 	github.com/jackc/pgio v1.0.0 // indirect
@@ -72,9 +61,9 @@ require (
 	github.com/jackc/pgx/v4 v4.18.3 // indirect
 	github.com/jackc/pgx/v5 v5.7.2 // indirect
 	github.com/jackc/puddle/v2 v2.2.2 // indirect
-	github.com/jimmitjoo/tjo/email v0.0.0-20251221094921-4845a0ed4627 // indirect
-	github.com/jimmitjoo/tjo/otel v0.0.0-20251221094921-4845a0ed4627 // indirect
-	github.com/jimmitjoo/tjo/sms v0.0.0-20251221094921-4845a0ed4627 // indirect
+	github.com/jimmitjoo/tjo/email v0.6.1 // indirect
+	github.com/jimmitjoo/tjo/otel v0.6.1 // indirect
+	github.com/jimmitjoo/tjo/sms v0.6.1 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
@@ -116,7 +105,7 @@ require (
 	go.opentelemetry.io/otel/sdk v1.39.0 // indirect
 	go.opentelemetry.io/otel/trace v1.39.0 // indirect
 	go.opentelemetry.io/proto/otlp v1.9.0 // indirect
-	golang.org/x/crypto v0.44.0 // indirect
+	golang.org/x/crypto v0.45.0 // indirect
 	golang.org/x/net v0.47.0 // indirect
 	golang.org/x/oauth2 v0.32.0 // indirect
 	golang.org/x/sync v0.18.0 // indirect

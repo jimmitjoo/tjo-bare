@@ -86,6 +86,15 @@ docker-compose up -d    # PostgreSQL, Redis, MinIO
 npm run watch
 ```
 
+### Working against a local framework checkout
+
+Use a `go.work` (gitignored) — never a `replace` in `go.mod`, that breaks the
+build for everyone who does not have the framework as a sibling directory:
+
+```bash
+go work init . ../tjo ../tjo/email ../tjo/otel ../tjo/sms ../tjo/websocket
+```
+
 ## Documentation
 
 - [Tjo Framework](https://github.com/jimmitjoo/tjo)
