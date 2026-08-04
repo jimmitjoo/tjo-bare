@@ -11,13 +11,19 @@ Minimal starting point for Tjo applications.
 tjo new myapp
 cd myapp
 
-# Configure
-cp .env.example .env
-# Edit .env with your database settings
+# Configure - tjo new already wrote .env with a generated KEY.
+# Edit it with your database settings. Do NOT overwrite it with
+# .env.example, which ships an empty KEY.
+$EDITOR .env
 
 # Run
 tjo run
 ```
+
+Cloning this repository directly instead of using `tjo new`? Then you do need
+`cp .env.example .env`, and you must generate `KEY` yourself — see the comment
+above it in `.env.example`.
+
 
 Open [http://localhost:4000](http://localhost:4000)
 
