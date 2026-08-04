@@ -3,13 +3,14 @@ BINARY_NAME=tjoApp.exe
 build:
 	@echo "Building Tjo..."
 	@go build -o tmp/${BINARY_NAME} .
-	@npx tailwindcss -i ./resources/css/styles.css -o ./public/css/styles.css
+	@npm install
+	@npm run build
 	@echo "Tjo built!"
 
 run: build start_compose
 	@echo "Starting Tjo..."
 	@start /min cmd /c tmp\${BINARY_NAME} &
-	@npx tailwindcss -i ./resources/css/styles.css -o ./public/css/styles.css --watch
+	@npm run watch
 	@echo "Tjo started!"
 
 clean:

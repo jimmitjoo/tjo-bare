@@ -50,7 +50,7 @@ myapp/
 ├── middleware/          # Middleware
 ├── views/               # Jet templates
 ├── public/              # Static assets
-├── migrations/          # DB migrations
+├── migrations/          # DB migrations (created by tjo make migration)
 ├── .env.example         # Config template
 └── docker-compose.yml   # Dev services
 ```
