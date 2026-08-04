@@ -6,7 +6,7 @@ toolchain go1.24.4
 
 require (
 	github.com/go-chi/chi/v5 v5.2.3
-	github.com/jimmitjoo/tjo v0.6.2-0.20260804151200-507c163f607a
+	github.com/jimmitjoo/tjo v0.7.0
 	github.com/upper/db/v4 v4.10.0
 )
 
@@ -61,9 +61,9 @@ require (
 	github.com/jackc/pgx/v4 v4.18.3 // indirect
 	github.com/jackc/pgx/v5 v5.7.2 // indirect
 	github.com/jackc/puddle/v2 v2.2.2 // indirect
-	github.com/jimmitjoo/tjo/email v0.6.1 // indirect
-	github.com/jimmitjoo/tjo/otel v0.6.1 // indirect
-	github.com/jimmitjoo/tjo/sms v0.6.1 // indirect
+	github.com/jimmitjoo/tjo/email v0.7.0 // indirect
+	github.com/jimmitjoo/tjo/otel v0.7.0 // indirect
+	github.com/jimmitjoo/tjo/sms v0.7.0 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
