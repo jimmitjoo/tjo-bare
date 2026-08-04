@@ -289,8 +289,8 @@ github.com/jarcoal/httpmock v1.0.4 h1:jp+dy/+nonJE4g4xbVtl9QdrUNbn6/3hDT5R4nDIZn
 github.com/jarcoal/httpmock v1.0.4/go.mod h1:ATjnClrvW/3tijVmpL/va5Z3aAyGvqU3gCT8nX0Txik=
 github.com/jaytaylor/html2text v0.0.0-20190408195923-01ec452cbe43/go.mod h1:CVKlgaMiht+LXvHG173ujK6JUhZXKb2u/BQtjPDIvyk=
 github.com/jhillyerd/enmime v0.8.0/go.mod h1:MBHs3ugk03NGjMM6PuRynlKf+HA5eSillZ+TRCm73AE=
-github.com/jimmitjoo/tjo v0.6.2-0.20260804140902-3ce7e1e1a8c9 h1:7OTIS5Zf5FFKxKYF6Qj1GRCfCc7e/zNd71x41vBY9C4=
-github.com/jimmitjoo/tjo v0.6.2-0.20260804140902-3ce7e1e1a8c9/go.mod h1:5s9MxHTEPkybOj5wQrn23UhCKYkvobG9VynmIctTFbc=
+github.com/jimmitjoo/tjo v0.6.2-0.20260804151200-507c163f607a h1:4FO+wtLfoLJfRISyp7+wpSE0VBumomluTUkOOFuUZ3w=
+github.com/jimmitjoo/tjo v0.6.2-0.20260804151200-507c163f607a/go.mod h1:5s9MxHTEPkybOj5wQrn23UhCKYkvobG9VynmIctTFbc=
 github.com/jimmitjoo/tjo/email v0.6.1 h1:L021Z5APYpZB38mL+bQv3iy8PzpPWaf1J7y3SzdK3TU=
 github.com/jimmitjoo/tjo/email v0.6.1/go.mod h1:RUNPHw6qqJSO8Sfes15tRCs5nwSmtIbjIeaiMQV+H7o=
 github.com/jimmitjoo/tjo/otel v0.6.1 h1:RfGXfvXYbXozaFXWuTHNNAnD89xl7Qilvh3uiYNAL4E=

@@ -6,7 +6,7 @@ toolchain go1.24.4
 
 require (
 	github.com/go-chi/chi/v5 v5.2.3
-	github.com/jimmitjoo/tjo v0.6.2-0.20260804140902-3ce7e1e1a8c9
+	github.com/jimmitjoo/tjo v0.6.2-0.20260804151200-507c163f607a
 	github.com/upper/db/v4 v4.10.0
 )
 
