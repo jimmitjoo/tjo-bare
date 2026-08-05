@@ -6,7 +6,7 @@ toolchain go1.26.5
 
 require (
 	github.com/go-chi/chi/v5 v5.3.1
-	github.com/jimmitjoo/tjo v0.11.0
+	github.com/jimmitjoo/tjo v0.12.0
 	github.com/upper/db/v4 v4.10.0
 )
 
@@ -43,7 +43,7 @@ require (
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.10 // indirect
 	github.com/go-ini/ini v1.67.0 // indirect
-	github.com/go-logr/logr v1.4.3 // indirect
+	github.com/go-logr/logr v1.4.4 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-sql-driver/mysql v1.9.3 // indirect
 	github.com/goccy/go-json v0.10.5 // indirect
@@ -59,9 +59,9 @@ require (
 	github.com/jackc/pgtype v1.14.4 // indirect
 	github.com/jackc/pgx/v5 v5.10.0 // indirect
 	github.com/jackc/puddle/v2 v2.2.2 // indirect
-	github.com/jimmitjoo/tjo/email v0.11.0 // indirect
-	github.com/jimmitjoo/tjo/otel v0.11.0 // indirect
-	github.com/jimmitjoo/tjo/sms v0.11.0 // indirect
+	github.com/jimmitjoo/tjo/email v0.12.0 // indirect
+	github.com/jimmitjoo/tjo/otel v0.12.0 // indirect
+	github.com/jimmitjoo/tjo/sms v0.12.0 // indirect
 	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/compress v1.18.0 // indirect
@@ -93,13 +93,13 @@ require (
 	github.com/vanng822/go-premailer v1.25.0 // indirect
 	github.com/xhit/go-simple-mail/v2 v2.16.0 // indirect
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
-	go.opentelemetry.io/otel v1.44.0 // indirect
+	go.opentelemetry.io/otel v1.45.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.39.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.39.0 // indirect
 	go.opentelemetry.io/otel/exporters/zipkin v1.39.0 // indirect
-	go.opentelemetry.io/otel/metric v1.44.0 // indirect
-	go.opentelemetry.io/otel/sdk v1.44.0 // indirect
-	go.opentelemetry.io/otel/trace v1.44.0 // indirect
+	go.opentelemetry.io/otel/metric v1.45.0 // indirect
+	go.opentelemetry.io/otel/sdk v1.45.0 // indirect
+	go.opentelemetry.io/otel/trace v1.45.0 // indirect
 	go.opentelemetry.io/proto/otlp v1.9.0 // indirect
 	golang.org/x/crypto v0.52.0 // indirect
 	golang.org/x/net v0.55.0 // indirect
