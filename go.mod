@@ -6,7 +6,7 @@ toolchain go1.26.5
 
 require (
 	github.com/go-chi/chi/v5 v5.3.1
-	github.com/jimmitjoo/tjo v0.9.0
+	github.com/jimmitjoo/tjo v0.10.0
 	github.com/upper/db/v4 v4.10.0
 )
 
@@ -59,9 +59,9 @@ require (
 	github.com/jackc/pgtype v1.14.4 // indirect
 	github.com/jackc/pgx/v5 v5.10.0 // indirect
 	github.com/jackc/puddle/v2 v2.2.2 // indirect
-	github.com/jimmitjoo/tjo/email v0.9.0 // indirect
-	github.com/jimmitjoo/tjo/otel v0.9.0 // indirect
-	github.com/jimmitjoo/tjo/sms v0.9.0 // indirect
+	github.com/jimmitjoo/tjo/email v0.10.0 // indirect
+	github.com/jimmitjoo/tjo/otel v0.10.0 // indirect
+	github.com/jimmitjoo/tjo/sms v0.10.0 // indirect
 	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/compress v1.18.0 // indirect
@@ -87,7 +87,7 @@ require (
 	github.com/segmentio/fasthash v1.0.3 // indirect
 	github.com/sendgrid/rest v2.6.9+incompatible // indirect
 	github.com/sendgrid/sendgrid-go v3.16.1+incompatible // indirect
-	github.com/tinylib/msgp v1.4.0 // indirect
+	github.com/tinylib/msgp v1.6.4 // indirect
 	github.com/toorop/go-dkim v0.0.0-20250226130143-9025cce95817 // indirect
 	github.com/vanng822/css v1.0.1 // indirect
 	github.com/vanng822/go-premailer v1.25.0 // indirect
