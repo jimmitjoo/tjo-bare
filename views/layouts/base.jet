@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="min-h-screen">
+<html lang="{{ lang }}" dir="{{ dir }}" class="min-h-screen">
 <head>
         <meta charset="UTF-8">
         <meta name="csrf_token" content="{{.CSRFToken}}">
@@ -20,7 +20,7 @@
 <body class="min-h-screen bg-gray-50">
 <div class="container mx-auto">
             {{if .Flash }}
-                <div class="flex items-center justify-between gap-x-6 bg-gray-900 py-2.5 px-6 sm:pr-3.5 lg:pl-8">
+                <div class="flex items-center justify-between gap-x-6 bg-gray-900 py-2.5 px-6 sm:pe-3.5 lg:ps-8">
                     <p class="text-sm leading-6 text-white">
                         {{.Flash}}
                     </p>
@@ -28,7 +28,7 @@
             {{end}}
 
             {{if .Error }}
-                <div class="flex items-center justify-between gap-x-6 bg-red-700 py-2.5 px-6 sm:pr-3.5 lg:pl-8">
+                <div class="flex items-center justify-between gap-x-6 bg-red-700 py-2.5 px-6 sm:pe-3.5 lg:ps-8">
                     <p class="text-sm leading-6 text-white">
                         {{.Error}}
                     </p>
